@@ -14,4 +14,8 @@ class Student extends Model
     public function getContact(){
         return $this->hasOne(Contact::class);
     }
+
+    public function parents(){
+        return $this->hasOneThrough(Parentinfo::class, Contact::class);
+    }
 }
