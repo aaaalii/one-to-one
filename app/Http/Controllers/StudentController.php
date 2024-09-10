@@ -18,10 +18,18 @@ class StudentController extends Controller
         // echo $students->getContact->email;
         
         // to use condition with second table (contacts)
-        $students = Student::where('gender', 'M')->withWhereHas('getContact', function($query){
-            $query->where('city', 'nankana');
-        })->get(); // similarly we have a method whereHas(), which checks the condition in the second table, but returns data only from first table
-        return $students;
+        // $students = Student::where('gender', 'M')->withWhereHas('getContact', function($query){
+        //     $query->where('city', 'nankana');
+        // })->get(); // similarly we have a method whereHas(), which checks the condition in the second table, but returns data only from first table
+
+        //--------------has-one-through-------------------
+
+        $students = Student::with('getContact')->with('parents')->get();
+
+        echo $students[0]->name,
+             "--", $students[0]->getContact->email,
+              "--", $students[0]->parents->name, "<br>";
+        //return $students;
     }
 
     /**
